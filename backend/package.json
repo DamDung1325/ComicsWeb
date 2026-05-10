@@ -1,0 +1,14 @@
+{
+  "name": "comicsweb-backend",
+  "version": "1.0.0",
+  "description": "ComicsWeb API — json-server-auth backend",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "dependencies": {
+    "json-server": "0.17.4",
+    "json-server-auth": "2.1.0"
+  }
+}
