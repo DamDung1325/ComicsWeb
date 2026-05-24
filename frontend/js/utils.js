@@ -127,9 +127,21 @@ function getQueryParam(name) {
 }
 
 /**
+ * Xác định đường dẫn tương đối về root frontend
+ * (tuỳ thuộc file html nằm ở cấp nào)
+ */
+function getBasePath() {
+  const path = window.location.pathname;
+  if (path.includes('/pages/admin/')) return '../../';
+  if (path.includes('/pages/')) return '../';
+  return './';
+}
+
+/**
  * Render HTML cho 1 comic card
  */
 function renderComicCard(comic, index = 0) {
+  const base = getBasePath();
   const statusBadge = comic.status === 'completed'
     ? '<span class="cw-comic-card__badge cw-comic-card__badge--completed">Hoàn thành</span>'
     : '<span class="cw-comic-card__badge">Đang ra</span>';
@@ -141,11 +153,11 @@ function renderComicCard(comic, index = 0) {
 
   return `
     <div class="col-6 col-md-4 col-lg-3 col-xl-2 mb-4 anim-slide-up anim-delay-${(index % 4) + 1}">
-      <a href="pages/comic-detail.html?id=${comic.id}" class="text-decoration-none">
+      <a href="${base}pages/comic-detail.html?id=${comic.id}" class="text-decoration-none">
         <div class="cw-comic-card">
           <div class="cw-comic-card__cover">
-            <img src="${comic.coverImage}" alt="${comic.title}"
-                 onerror="this.src='assets/images/placeholder.svg'">
+            <img src="${base}${comic.coverImage}" alt="${comic.title}"
+                 onerror="this.src='${base}assets/images/placeholder.svg'">
             ${statusBadge}
           </div>
           <div class="cw-comic-card__body">
