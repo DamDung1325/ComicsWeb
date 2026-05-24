@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="300" height="450" viewBox="0 0 300 450">
+  <rect width="300" height="450" fill="#1A1A1A"/>
+  <rect x="10" y="10" width="280" height="430" rx="8" fill="#222" stroke="#333" stroke-width="1"/>
+  <text x="150" y="200" text-anchor="middle" fill="#555" font-family="Arial" font-size="16" font-weight="bold">COMIC</text>
+  <text x="150" y="225" text-anchor="middle" fill="#444" font-family="Arial" font-size="12">Cover Image</text>
+  <rect x="110" y="250" width="80" height="4" rx="2" fill="#E62429" opacity="0.5"/>
+</svg>

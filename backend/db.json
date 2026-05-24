@@ -1,0 +1,346 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "email": "admin@comicsweb.vn",
+      "password": "$2a$10$XQCg1z4YL1k0M4Y0M4Y0M.HASHED_PLACEHOLDER",
+      "role": "admin",
+      "displayName": "Quản Trị Viên",
+      "avatar": "",
+      "createdAt": "2026-01-01T00:00:00Z"
+    },
+    {
+      "email": "mixigmaing@gmail.com",
+      "password": "$2a$10$ow9.EjSIFOvqLnXmETijp.gTQMUvDcgIHlBEyw3ubOHw.zoaAWdku",
+      "displayName": "mixi_Quản Trị Viên",
+      "role": "admin",
+      "avatar": "",
+      "createdAt": "2026-05-17T01:30:04.226Z",
+      "id": 2
+    },
+    {
+      "email": "quantricomic@gmail.com",
+      "password": "$2a$10$z/aA//j5vte.G//c6TuKfewpP69Skvq5Jc6ShYMQ3HyHqikuQoHOm",
+      "displayName": "duc anh le",
+      "role": "admin",
+      "avatar": "",
+      "createdAt": "2026-05-21T13:33:59.069Z",
+      "id": 3
+    }
+  ],
+  "comics": [
+    {
+      "id": 1,
+      "title": "The Beginning After The End",
+      "slug": "the-beginning-after-the-end",
+      "description": "Vua Grey có sức mạnh, sự giàu có và địa vị vô song trong một thế giới được thống trị bởi khả năng chiến đấu. Tuy nhiên, sự cô độc vẫn bám riết lấy những người có sức mạnh to lớn. Được tái sinh vào một thế giới mới đầy ma thuật và quái thú, nhà vua có cơ hội thứ hai để sửa chữa những sai lầm trong quá khứ.",
+      "coverImage": "assets/images/cover_images/cover_2.jpg",
+      "author": "TurtleMe",
+      "artist": "Fuyuki23's Departure",
+      "genres": [
+        "action",
+        "adventure",
+        "fantasy"
+      ],
+      "status": "ongoing",
+      "rating": 4.5,
+      "views": 125000,
+      "totalChapters": 3,
+      "createdAt": "2026-01-15T10:00:00Z",
+      "updatedAt": "2026-05-10T08:00:00Z"
+    },
+    {
+      "id": 2,
+      "title": "Gacha vô hạn",
+      "slug": "gacha-vo-han",
+      "description": "Bị cuốn vào trò chơi sinh tồn tàn khốc nơi nhân loại phải chiến đấu với quái vật, Trần Phong thức tỉnh được khả năng độc nhất vô nhị: Gacha vô hạn lượt quay! Từ những trang bị cấp rác cho đến thần khí cấp tối cao, cuộc hành trình chinh phục mọi thử thách và đứng đầu thế giới của anh bắt đầu!",
+      "coverImage": "assets/images/cover_images/cover_1.jpg",
+      "author": "Naemmu19",
+      "artist": "REDICE Studio",
+      "genres": [
+        "action",
+        "adventure",
+        "fantasy"
+      ],
+      "status": "ongoing",
+      "rating": 4.8,
+      "views": 250000,
+      "totalChapters": 2,
+      "createdAt": "2026-02-01T10:00:00Z",
+      "updatedAt": "2026-05-09T12:00:00Z"
+    },
+    {
+      "id": 3,
+      "title": "One Piece",
+      "slug": "one-piece",
+      "description": "Câu chuyện kể về Monkey D. Luffy, một chàng trai trẻ tuổi với ước mơ tìm kiếm kho báu huyền thoại One Piece và trở thành Tân Vua Hải Tặc. Cùng với những người đồng đội trong băng hải tặc Mũ Rơm, Luffy bước vào những chuyến phiêu lưu kỳ thú và đầy thử thách trên Đại Hải Trình.",
+      "coverImage": "assets/images/cover_images/cover_3.jpg",
+      "author": "Eiichiro Oda",
+      "artist": "Eiichiro Oda",
+      "genres": [
+        "action",
+        "adventure",
+        "comedy",
+        "fantasy"
+      ],
+      "status": "ongoing",
+      "rating": 4.2,
+      "views": 589000,
+      "totalChapters": 2,
+      "createdAt": "2026-01-20T10:00:00Z",
+      "updatedAt": "2026-04-15T08:00:00Z"
+    },
+    {
+      "id": 4,
+      "title": "One Punch Man",
+      "slug": "one-punch-man",
+      "description": "Kể về Saitama, một siêu anh hùng cực kỳ mạnh mẽ, người có thể đánh bại bất kỳ đối thủ nào chỉ bằng một cú đấm duy nhất. Chính vì sức mạnh quá vô địch này, Saitama luôn cảm thấy nhàm chán và khao khát tìm kiếm một đối thủ xứng tầm để có được cảm giác phấn khích khi chiến đấu.",
+      "coverImage": "assets/images/cover_images/cover_4.jpg",
+      "author": "ONE",
+      "artist": "Yusuke Murata",
+      "genres": [
+        "action",
+        "comedy",
+        "sci-fi"
+      ],
+      "status": "ongoing",
+      "rating": 4.6,
+      "views": 178000,
+      "totalChapters": 1,
+      "createdAt": "2026-03-10T10:00:00Z",
+      "updatedAt": "2026-05-08T14:00:00Z"
+    },
+    {
+      "id": 5,
+      "title": "Naruto",
+      "slug": "naruto",
+      "description": "Kể về hành trình đầy gian khổ nhưng vô cùng kiên cường của Uzumaki Naruto, một ninja trẻ tuổi mang trong mình phong ấn của Cửu Vĩ Hồ Ly. Bị cả làng hắt hủi từ nhỏ, Naruto không ngừng nỗ lực rèn luyện với ước mơ cháy bỏng là trở thành Hokage - người đứng đầu và là ninja mạnh nhất làng Lá, để được mọi người công nhận.",
+      "coverImage": "assets/images/cover_images/cover_5.jpg",
+      "author": "Masashi Kishimoto",
+      "artist": "Masashi Kishimoto",
+      "genres": [
+        "action",
+        "adventure",
+        "fantasy"
+      ],
+      "status": "ongoing",
+      "rating": 4.3,
+      "views": 67000,
+      "totalChapters": 2,
+      "createdAt": "2026-02-14T10:00:00Z",
+      "updatedAt": "2026-04-01T08:00:00Z"
+    },
+    {
+      "id": 6,
+      "title": "7 viên ngọc rồng",
+      "slug": "7-vien-ngoc-rong",
+      "description": "Dragon Ball - 7 viên ngọc rồng là bộ manga của Toriyama Akira. Tác phẩm theo chân Son Goku từ thời thơ ấu trong hành trình luyện võ và đi tìm bảy viên ngọc rồng có thể triệu hồi Rồng Thần. Bộ truyện tranh manga này gây thiện cảm rất sớm nhờ tinh thần phiêu lưu trong trẻo, hài hước và luôn chuyển động. Càng đọc, người ta càng thấy rõ sức sống của một thế giới rộng mở, nơi mỗi chặng đường đều vừa vui nhộn vừa sẵn sàng bùng lên thành thử thách lớn.",
+      "coverImage": "assets/images/cover_images/cover_6.jpg",
+      "author": "Akira Toriyama",
+      "artist": "Akira Toriyama",
+      "genres": [
+        "action",
+        "adventure",
+        "comedy"
+      ],
+      "status": "completed",
+      "rating": 4.8,
+      "views": 945000,
+      "totalChapters": 1,
+      "createdAt": "2026-04-01T10:00:00Z",
+      "updatedAt": "2026-05-07T16:00:00Z"
+    },
+    {
+      "id": 14,
+      "title": "Attack on Titan",
+      "slug": "attack-on-titan",
+      "description": "Câu chuyện kể về cuộc chiến sinh tử của nhân loại chống lại các Titan khổng lồ ăn thịt người. Eren Yeager cùng những người bạn của mình gia nhập Trinh sát binh đoàn để tiêu diệt Titan và khám phá bí ẩn thế giới bên ngoài bức tường.",
+      "coverImage": "assets/images/placeholder.svg",
+      "author": "Eren",
+      "artist": "Hajime Isayama",
+      "genres": [
+        "action"
+      ],
+      "status": "ongoing",
+      "rating": 5,
+      "views": 0,
+      "totalChapters": 0,
+      "createdAt": "2026-05-21T14:30:03.900Z",
+      "updatedAt": "2026-05-21T14:30:53.482Z"
+    }
+  ],
+  "chapters": [
+    {
+      "id": 1,
+      "comicId": 1,
+      "chapterNumber": 1,
+      "title": "Khởi Đầu — Sức Mạnh Thức Tỉnh",
+      "pages": [
+        "assets/images/chapters/1/page1.jpg",
+        "assets/images/chapters/1/page2.jpg",
+        "assets/images/chapters/1/page3.jpg"
+      ],
+      "createdAt": "2026-01-20T10:00:00Z"
+    },
+    {
+      "id": 2,
+      "comicId": 1,
+      "chapterNumber": 2,
+      "title": "Kẻ Thù Đầu Tiên",
+      "pages": [
+        "assets/images/chapters/1/page4.jpg",
+        "assets/images/chapters/1/page5.jpg",
+        "assets/images/chapters/1/page6.jpg"
+      ],
+      "createdAt": "2026-02-01T10:00:00Z"
+    },
+    {
+      "id": 3,
+      "comicId": 1,
+      "chapterNumber": 3,
+      "title": "Liên Minh Hình Thành",
+      "pages": [
+        "assets/images/chapters/1/page7.jpg",
+        "assets/images/chapters/1/page8.jpg",
+        "assets/images/chapters/1/page9.jpg"
+      ],
+      "createdAt": "2026-03-01T10:00:00Z"
+    },
+    {
+      "id": 4,
+      "comicId": 2,
+      "chapterNumber": 1,
+      "title": "Bóng Tối Giáng Lâm",
+      "pages": [
+        "assets/images/chapters/2/page1.jpg",
+        "assets/images/chapters/2/page2.jpg",
+        "assets/images/chapters/2/page3.jpg"
+      ],
+      "createdAt": "2026-02-10T10:00:00Z"
+    },
+    {
+      "id": 5,
+      "comicId": 2,
+      "chapterNumber": 2,
+      "title": "Kẻ Báo Thù",
+      "pages": [
+        "assets/images/chapters/2/page4.jpg",
+        "assets/images/chapters/2/page5.jpg"
+      ],
+      "createdAt": "2026-03-05T10:00:00Z"
+    },
+    {
+      "id": 6,
+      "comicId": 3,
+      "chapterNumber": 1,
+      "title": "Bình Minh Phiêu Lưu",
+      "pages": [
+        "assets/images/chapters/3/page1.jpg",
+        "assets/images/chapters/3/page2.jpg"
+      ],
+      "createdAt": "2026-01-25T10:00:00Z"
+    },
+    {
+      "id": 7,
+      "comicId": 3,
+      "chapterNumber": 2,
+      "title": "Chàng Trai Mũ Rơm Luffy",
+      "pages": [
+        "assets/images/chapters/3/page3.jpg",
+        "assets/images/chapters/3/page4.jpg"
+      ],
+      "createdAt": "2026-02-20T10:00:00Z"
+    },
+    {
+      "id": 8,
+      "comicId": 4,
+      "chapterNumber": 1,
+      "title": "Một Cú Đấm Tất Sát",
+      "pages": [
+        "assets/images/chapters/4/page1.jpeg",
+        "assets/images/chapters/4/page2.jpeg",
+        "assets/images/chapters/4/page3.jpeg"
+      ],
+      "createdAt": "2026-03-15T10:00:00Z"
+    },
+    {
+      "id": 9,
+      "comicId": 5,
+      "chapterNumber": 1,
+      "title": "Uzumaki Naruto Xuất Hiện!",
+      "pages": [
+        "assets/images/chapters/5/page1.jpg",
+        "assets/images/chapters/5/page2.jpg"
+      ],
+      "createdAt": "2026-02-20T10:00:00Z"
+    },
+    {
+      "id": 10,
+      "comicId": 5,
+      "chapterNumber": 2,
+      "title": "Đội 7 Thành Lập",
+      "pages": [
+        "assets/images/chapters/5/page3.png",
+        "assets/images/chapters/5/page4.png"
+      ],
+      "createdAt": "2026-03-15T10:00:00Z"
+    },
+    {
+      "id": 11,
+      "comicId": 6,
+      "chapterNumber": 1,
+      "title": "Bulma và Son Goku",
+      "pages": [
+        "assets/images/chapters/6/page1.jpg",
+        "assets/images/chapters/6/page2.jpg",
+        "assets/images/chapters/6/page3.jpg"
+      ],
+      "createdAt": "2026-04-05T10:00:00Z"
+    }
+  ],
+  "bookmarks": [
+    {
+      "id": 1,
+      "userId": 1,
+      "comicId": 1,
+      "createdAt": "2026-02-01T12:00:00Z"
+    }
+  ],
+  "readingHistory": [
+    {
+      "id": 1,
+      "userId": 1,
+      "comicId": 1,
+      "chapterId": 3,
+      "lastPage": 2,
+      "updatedAt": "2026-05-01T09:30:00Z"
+    }
+  ],
+  "genres": [
+    {
+      "id": 1,
+      "name": "Hành động",
+      "slug": "action"
+    },
+    {
+      "id": 2,
+      "name": "Phiêu lưu",
+      "slug": "adventure"
+    },
+    {
+      "id": 3,
+      "name": "Giả tưởng",
+      "slug": "fantasy"
+    },
+    {
+      "id": 4,
+      "name": "Hài hước",
+      "slug": "comedy"
+    },
+    {
+      "id": 5,
+      "name": "Viễn tưởng",
+      "slug": "sci-fi"
+    }
+  ]
+}
