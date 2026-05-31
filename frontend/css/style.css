@@ -1080,3 +1080,30 @@ img { max-width: 100%; height: auto; }
     align-items: flex-start;
   }
 }
+.cw-admin-table {
+  --bs-table-bg: transparent;
+  --bs-table-color: var(--text-primary);
+  --bs-table-border-color: var(--border-color);
+
+  background: var(--bg-card) !important;
+  color: var(--text-primary) !important;
+}
+
+.cw-admin-table thead,
+.cw-admin-table thead tr,
+.cw-admin-table thead th {
+  background-color: var(--bg-surface-hover) !important;
+  color: var(--text-primary) !important;
+}
+
+.cw-admin-table tbody,
+.cw-admin-table tbody tr,
+.cw-admin-table tbody td {
+  background-color: var(--bg-card) !important;
+  color: var(--text-primary) !important;
+}
+
+.cw-admin-table tbody tr:hover,
+.cw-admin-table tbody tr:hover td {
+  background-color: var(--bg-surface-hover) !important;
+}

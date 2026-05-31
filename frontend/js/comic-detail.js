@@ -36,6 +36,22 @@ async function loadComicDetail() {
 
     if (!comic) throw new Error('Không tìm thấy');
 
+    // Kiểm tra truyện chưa được duyệt
+    const user = Auth.getCurrentUser();
+    const isAdmin = Auth.isAdmin();
+    const isUploader = user && comic.uploaderId === user.id;
+    if (comic.approved === false && !isAdmin && !isUploader) {
+      document.getElementById('comic-detail-content').innerHTML = `
+        <div class="text-center py-5">
+          <div class="text-warning mb-3" style="font-size:3rem;"><i class="bi bi-hourglass-split"></i></div>
+          <h4>Truyện đang chờ duyệt</h4>
+          <p class="text-secondary">Bộ truyện này đang chờ admin phê duyệt và sẽ hiển thị sau khi được chấp thuận.</p>
+          <a href="../index.html" class="btn btn-cw-primary mt-3">Về trang chủ</a>
+        </div>
+      `;
+      return;
+    }
+
     renderDetail(comic, chapters, comments, bookmarkInfo, purchases, cart);
   } catch (err) {
     console.error(err);

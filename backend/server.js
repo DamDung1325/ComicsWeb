@@ -21,6 +21,7 @@
 const jsonServer = require('json-server');
 const auth = require('json-server-auth');
 const path = require('path');
+const bcrypt = require('bcryptjs');
 
 const server = jsonServer.create();
 const router = jsonServer.router(path.join(__dirname, 'db.json'));
@@ -56,22 +57,56 @@ const rules = auth.rewriter({
   bookmarks: 660,
   // Reading History: chỉ user đã đăng nhập
   readingHistory: 660,
-  // Users: chỉ owner xem/sửa
-  users: 600,
-  // Giỏ hàng: chỉ owner xem/sửa
-  cart: 660,
-  // Lịch sử mua: chỉ owner xem/sửa
-  purchases: 660,
-  // Bình luận: ai cũng đọc được, chỉ user đăng nhập mới được đăng
-  comments: 664,
+  // Users: tài khoản đã đăng nhập có thể CRUD để trang admin quản lý tài khoản
+  users: 660,
 });
 
 // ─── Apply middleware theo thứ tự ─────────────────────────
-server.use(rules);
-server.use(middlewares);
+server.use(jsonServer.bodyParser);
 
 // Bind json-server-auth router
 server.db = router.db;
+
+// Custom create user route cho trang admin.
+// Route này đặt trước auth.rewriter để POST /users không bị đổi thành /660/users.
+// Route này hash mật khẩu trước khi lưu vào db.json.
+server.post('/users', (req, res) => {
+  const { email, password, displayName, username, role, status, avatar } = req.body;
+
+  if (!email || !password) {
+    return res.status(400).json({ message: 'Email và mật khẩu là bắt buộc' });
+  }
+
+  const users = router.db.get('users');
+  const existed = users.find({ email }).value();
+
+  if (existed) {
+    return res.status(400).json({ message: 'Email đã tồn tại' });
+  }
+
+  const allUsers = users.value();
+  const maxId = allUsers.length ? Math.max(...allUsers.map(u => Number(u.id) || 0)) : 0;
+
+  const newUser = {
+    id: maxId + 1,
+    email,
+    password: bcrypt.hashSync(password, 10),
+    displayName: displayName || email.split('@')[0],
+    username: username || email.split('@')[0],
+    role: role || 'user',
+    status: status || 'active',
+    avatar: avatar || '',
+    createdAt: req.body.createdAt || new Date().toISOString(),
+  };
+
+  users.push(newUser).write();
+
+  const { password: _password, ...safeUser } = newUser;
+  return res.status(201).json(safeUser);
+});
+
+server.use(rules);
+server.use(middlewares);
 server.use(auth);
 server.use(router);
 

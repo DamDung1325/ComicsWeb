@@ -25,7 +25,8 @@ async function fetchAPI(endpoint, options = {}) {
     if (response.status === 401) {
       // Token hết hạn hoặc không hợp lệ
       Auth.logout();
-      window.location.href = '/pages/login.html';
+      const base = typeof getBasePath === 'function' ? getBasePath() : '/';
+      window.location.href = base + 'pages/login.html';
       return null;
     }
 
@@ -73,9 +74,30 @@ async function createComic(data) {
   return fetchAPI('/comics', { method: 'POST', body: JSON.stringify(data) });
 }
 
+/** Thêm truyện mới bởi user */
+async function createComicByUser(data) {
+  const user = Auth.getCurrentUser();
+  if (!user) throw new Error('Vui lòng đăng nhập');
+  
+  const payload = {
+    ...data,
+    uploaderId: user.id,
+    approved: false, // Chờ admin duyệt
+    views: 0,
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString()
+  };
+  return fetchAPI('/comics', { method: 'POST', body: JSON.stringify(payload) });
+}
+
 /** Cập nhật truyện (admin) */
 async function updateComic(id, data) {
   return fetchAPI(`/comics/${id}`, { method: 'PUT', body: JSON.stringify(data) });
+}
+
+/** Cập nhật 1 phần thông tin truyện (admin) */
+async function patchComic(id, data) {
+  return fetchAPI(`/comics/${id}`, { method: 'PATCH', body: JSON.stringify(data) });
 }
 
 /** Xoá truyện (admin) */
@@ -100,11 +122,39 @@ async function createChapter(data) {
   return fetchAPI('/chapters', { method: 'POST', body: JSON.stringify(data) });
 }
 
+/** Xoá chương */
+async function deleteChapter(id) {
+  return fetchAPI(`/chapters/${id}`, { method: 'DELETE' });
+}
+
 /* ─── Genres ────────────────────────────────────────────── */
 
 /** Lấy danh sách thể loại */
 async function getGenres() {
   return fetchAPI('/genres');
+}
+
+
+/* ─── Users / Accounts ─────────────────────────────────── */
+
+/** Lấy danh sách tài khoản */
+async function getUsers() {
+  return fetchAPI('/users');
+}
+
+/** Thêm tài khoản mới */
+async function createUser(data) {
+  return fetchAPI('/users', { method: 'POST', body: JSON.stringify(data) });
+}
+
+/** Cập nhật tài khoản */
+async function updateUser(id, data) {
+  return fetchAPI(`/users/${id}`, { method: 'PATCH', body: JSON.stringify(data) });
+}
+
+/** Xoá tài khoản */
+async function deleteUser(id) {
+  return fetchAPI(`/users/${id}`, { method: 'DELETE' });
 }
 
 /* ─── Bookmarks ─────────────────────────────────────────── */
@@ -141,30 +191,55 @@ async function updateReadingHistory(userId, comicId, chapterId, lastPage) {
   return fetchAPI('/readingHistory', { method: 'POST', body: JSON.stringify(data) });
 }
 
-/* ─── Cart (Giỏ hàng) ─────────────────────────────────────── */
+/* ─── Comments ──────────────────────────────────────────── */
 
-/** Lấy giỏ hàng của user */
+/** Lấy bình luận của 1 truyện */
+async function getCommentsByComic(comicId) {
+  return fetchAPI(`/comments?comicId=${comicId}&_sort=createdAt&_order=desc`);
+}
+
+/** Thêm bình luận */
+async function addComment(comicId, content) {
+  const user = Auth.getCurrentUser();
+  if (!user) throw new Error('Vui lòng đăng nhập');
+  const data = {
+    comicId: parseInt(comicId),
+    userId: user.id,
+    userDisplayName: user.displayName,
+    userAvatar: user.avatar,
+    content,
+    createdAt: new Date().toISOString()
+  };
+  return fetchAPI('/comments', { method: 'POST', body: JSON.stringify(data) });
+}
+
+/** Xóa bình luận */
+async function deleteComment(id) {
+  return fetchAPI(`/comments/${id}`, { method: 'DELETE' });
+}
+
+/* ─── Purchases & Cart ──────────────────────────────────── */
+
+/** Lấy lịch sử mua */
+async function getPurchases(userId) {
+  return fetchAPI(`/purchases?userId=${userId}`);
+}
+
+/** Mua chương */
+async function createPurchase(userId, comicId, chapterId, price) {
+  const data = { userId, comicId: parseInt(comicId), chapterId: parseInt(chapterId), price, createdAt: new Date().toISOString() };
+  return fetchAPI('/purchases', { method: 'POST', body: JSON.stringify(data) });
+}
+
+/** Lấy giỏ hàng */
 async function getCart(userId) {
   return fetchAPI(`/cart?userId=${userId}`);
 }
 
 /** Thêm vào giỏ hàng */
 async function addToCart(userId, comicId, chapterId, price) {
-  // Tránh add trùng
-  const existing = await fetchAPI(`/cart?userId=${userId}&comicId=${comicId}&chapterId=${chapterId}`);
-  if (existing && existing.length > 0) {
-    return existing[0]; // Đã có rồi thì return luôn
-  }
-  return fetchAPI('/cart', {
-    method: 'POST',
-    body: JSON.stringify({
-      userId,
-      comicId,
-      chapterId,
-      price,
-      createdAt: new Date().toISOString()
-    })
-  });
+  const data = { userId, comicId: parseInt(comicId), chapterId: parseInt(chapterId), price, createdAt: new Date().toISOString() };
+  return fetchAPI('/cart', { method: 'POST', body: JSON.stringify(data) });
 }
 
 /** Xoá khỏi giỏ hàng */
@@ -172,109 +247,17 @@ async function removeFromCart(cartId) {
   return fetchAPI(`/cart/${cartId}`, { method: 'DELETE' });
 }
 
-/* ─── Purchases (Mua truyện/chương) ─────────────────────────── */
+/* ─── Coins ─────────────────────────────────────────────── */
 
-/** Lấy danh sách đã mua của user */
-async function getPurchases(userId) {
-  return fetchAPI(`/purchases?userId=${userId}`);
-}
-
-/** Mua một chương truyện */
-async function createPurchase(userId, comicId, chapterId, price) {
-  return fetchAPI('/purchases', {
-    method: 'POST',
-    body: JSON.stringify({
-      userId,
-      comicId,
-      chapterId,
-      price,
-      createdAt: new Date().toISOString()
-    })
-  });
-}
-
-/* ─── User Coins (Xu tài khoản) ────────────────────────────────── */
-
-/** Cập nhật xu của user */
+/** Cập nhật xu */
 async function updateUserCoins(userId, coins) {
-  const result = await fetchAPI(`/users/${userId}`, {
-    method: 'PATCH',
-    body: JSON.stringify({ coins })
-  });
+  const user = await fetchAPI(`/users/${userId}`, { method: 'PATCH', body: JSON.stringify({ coins }) });
   
-  if (result) {
-    // Đồng bộ lại local storage
-    const currentUser = Auth.getCurrentUser();
-    if (currentUser && currentUser.id === userId) {
-      currentUser.coins = coins;
-      localStorage.setItem(CONFIG.USER_KEY, JSON.stringify(currentUser));
-    }
+  // Update auth local state
+  const currentUser = Auth.getCurrentUser();
+  if (currentUser && currentUser.id === userId) {
+    currentUser.coins = coins;
+    localStorage.setItem(CONFIG.USER_KEY, JSON.stringify(currentUser));
   }
-  return result;
+  return user;
 }
-
-/* ─── Comments (Bình luận) ────────────────────────────────────── */
-
-/** Lấy danh sách bình luận của truyện */
-async function getCommentsByComic(comicId) {
-  return fetchAPI(`/comments?comicId=${comicId}&_sort=createdAt&_order=desc`);
-}
-
-/** Đăng bình luận mới */
-async function addComment(comicId, content) {
-  const user = Auth.getCurrentUser();
-  if (!user) throw new Error('Vui lòng đăng nhập để bình luận');
-
-  return fetchAPI('/comments', {
-    method: 'POST',
-    body: JSON.stringify({
-      comicId: parseInt(comicId),
-      userId: user.id,
-      userDisplayName: user.displayName || user.email,
-      userAvatar: user.avatar || '',
-      content: content,
-      createdAt: new Date().toISOString()
-    })
-  });
-}
-
-/** Xoá bình luận */
-async function deleteComment(commentId) {
-  return fetchAPI(`/comments/${commentId}`, { method: 'DELETE' });
-}
-
-/* ─── User Upload & Admin Approval ──────────────────────────── */
-
-/** Đăng truyện mới bởi User (chờ duyệt) */
-async function createComicByUser(data) {
-  const user = Auth.getCurrentUser();
-  if (!user) throw new Error('Vui lòng đăng nhập để thực hiện');
-
-  return fetchAPI('/comics', {
-    method: 'POST',
-    body: JSON.stringify({
-      ...data,
-      views: 0,
-      rating: 5.0,
-      totalChapters: 0,
-      approved: false,
-      uploaderId: user.id,
-      createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString()
-    })
-  });
-}
-
-/** Lấy danh sách truyện đang chờ duyệt */
-async function getPendingComics() {
-  return fetchAPI('/comics?approved=false');
-}
-
-/** Phê duyệt truyện */
-async function approveComic(comicId) {
-  return fetchAPI(`/comics/${comicId}`, {
-    method: 'PATCH',
-    body: JSON.stringify({ approved: true })
-  });
-}
-

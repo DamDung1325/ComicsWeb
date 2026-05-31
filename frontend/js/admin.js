@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   loadAdminStats();
   loadAdminComicList();
-  loadAdminPendingComicList();
+  loadPendingComicList();
 
 });
 
@@ -52,7 +52,11 @@ async function loadAdminStats() {
     const totalComics = comics.length;
 
     const ongoing = comics.filter(
-      c => c.status === 'ongoing'
+      c => c.status === 'ongoing' && c.approved !== false
+    ).length;
+
+    const pending = comics.filter(
+      c => c.approved === false
     ).length;
 
     const totalViews = comics.reduce(
@@ -61,7 +65,7 @@ async function loadAdminStats() {
     );
 
     container.innerHTML = `
-      <div class="col-md-4 mb-3">
+      <div class="col-md-3 mb-3">
         <div class="p-3 rounded-3"
           style="
             background:var(--bg-surface);
@@ -81,7 +85,7 @@ async function loadAdminStats() {
         </div>
       </div>
 
-      <div class="col-md-4 mb-3">
+      <div class="col-md-3 mb-3">
         <div class="p-3 rounded-3"
           style="
             background:var(--bg-surface);
@@ -101,7 +105,27 @@ async function loadAdminStats() {
         </div>
       </div>
 
-      <div class="col-md-4 mb-3">
+      <div class="col-md-3 mb-3">
+        <div class="p-3 rounded-3"
+          style="
+            background:var(--bg-surface);
+            border:1px solid var(--border-color);
+          "
+        >
+          <h5 class="text-secondary mb-1">
+            Chờ duyệt
+          </h5>
+
+          <h2 style="
+            color:#ffc107; /* text-warning */
+            font-family:var(--font-heading);
+          ">
+            ${pending}
+          </h2>
+        </div>
+      </div>
+
+      <div class="col-md-3 mb-3">
         <div class="p-3 rounded-3"
           style="
             background:var(--bg-surface);
@@ -143,7 +167,7 @@ async function loadAdminComicList() {
 
   try {
 
-    const comics = await getComics({ limit: 999, filters: { approved: true } });
+    const comics = await getComics({ limit: 999 });
 
     container.innerHTML = `
       <table class="table table-dark table-hover">
@@ -172,11 +196,10 @@ async function loadAdminComicList() {
               <td>${c.author}</td>
 
               <td>
-                <span class="cw-genre-tag">
-                  ${c.status === 'completed'
-                    ? 'Hoàn thành'
-                    : 'Đang ra'}
-                </span>
+                ${c.approved === false 
+                  ? '<span class="badge bg-warning text-dark px-2 py-1">Chờ duyệt</span>'
+                  : `<span class="cw-genre-tag">${c.status === 'completed' ? 'Hoàn thành' : 'Đang ra'}</span>`
+                }
               </td>
 
               <td>${formatViews(c.views || 0)}</td>
@@ -186,14 +209,36 @@ async function loadAdminComicList() {
                 <!-- EDIT -->
                <button
                  class="btn btn-sm btn-cw-outline"
-                 onclick="window.location.href='editcomic.html?id=${c.id}'">
+                 onclick="window.location.href='editcomic.html?id=${c.id}'"
+                 title="Sửa">
                   <i class="bi bi-pencil"></i>
                 </button>
 
+                <!-- PREVIEW -->
+                <button
+                  class="btn btn-sm btn-outline-info ms-1"
+                  onclick="window.open('../comic-detail.html?id=${c.id}', '_blank')"
+                  title="Xem trước"
+                >
+                  <i class="bi bi-eye"></i>
+                </button>
+
+                <!-- APPROVE -->
+                ${c.approved === false ? `
+                <button
+                  class="btn btn-sm btn-outline-success ms-1"
+                  onclick="handleApproveComic(${c.id})"
+                  title="Duyệt truyện"
+                >
+                  <i class="bi bi-check-circle"></i>
+                </button>
+                ` : ''}
+
                 <!-- DELETE -->
                 <button
-                  class="btn btn-sm btn-outline-danger"
+                  class="btn btn-sm btn-outline-danger ms-1"
                   onclick="handleDeleteComic(${c.id})"
+                  title="Xoá truyện"
                 >
                   <i class="bi bi-trash"></i>
                 </button>
@@ -238,11 +283,22 @@ async function handleDeleteComic(id) {
 
   try {
 
+    // Xóa toàn bộ chapter thuộc truyện trước
+    const chapters = await getChaptersByComic(id);
+
+    for (const chapter of chapters) {
+      await deleteChapter(chapter.id);
+    }
+
     // Xóa comic
     await deleteComic(id);
 
     // Reload lại bảng
     await loadAdminComicList();
+    await loadPendingComicList();
+
+    // Reload stats
+    await loadAdminStats();
 
     alert('Xóa truyện thành công!');
 
@@ -257,21 +313,45 @@ async function handleDeleteComic(id) {
 }
 
 /* ===============================
-   DUYỆT TRUYỆN THÀNH VIÊN ĐĂNG
+   APPROVE COMIC
 ================================ */
 
-async function loadAdminPendingComicList() {
+async function handleApproveComic(id) {
+  const confirmApprove = confirm('Bạn có muốn duyệt cho phép hiển thị truyện này không?');
+  if (!confirmApprove) return;
+
+  try {
+    await patchComic(id, { approved: true });
+    
+    // Reload lại bảng và stats
+    await loadAdminComicList();
+    await loadPendingComicList();
+    await loadAdminStats();
+    
+    alert('Duyệt truyện thành công!');
+  } catch (err) {
+    console.error(err);
+    alert('Duyệt truyện thất bại!');
+  }
+}
+
+/* ===============================
+   PENDING COMICS LIST
+================================ */
+
+async function loadPendingComicList() {
   const container = document.getElementById('admin-pending-comic-list');
   if (!container) return;
 
   try {
-    const pendingComics = await getPendingComics();
-    
-    if (pendingComics.length === 0) {
+    const comics = await getComics({ limit: 999 });
+    const pending = comics.filter(c => c.approved === false);
+
+    if (pending.length === 0) {
       container.innerHTML = `
-        <div class="alert alert-secondary text-center py-4" style="background:var(--bg-surface); border-color:var(--border-color); color:var(--text-secondary);">
-          <i class="bi bi-check-circle-fill text-success mb-2" style="font-size:1.5rem; display:block;"></i>
-          Không có truyện nào đang chờ phê duyệt.
+        <div class="text-center py-4 text-secondary">
+          <i class="bi bi-check-circle" style="font-size:2rem;"></i>
+          <p class="mt-2">Không có truyện nào đang chờ duyệt.</p>
         </div>
       `;
       return;
@@ -282,74 +362,59 @@ async function loadAdminPendingComicList() {
         <thead>
           <tr>
             <th>ID</th>
+            <th>Ảnh bìa</th>
             <th>Tên truyện</th>
             <th>Tác giả</th>
-            <th>Thể loại</th>
             <th>Người đăng</th>
+            <th>Thời gian</th>
             <th>Thao tác</th>
           </tr>
         </thead>
         <tbody>
-          ${pendingComics.map(c => `
-            <tr>
-              <td>${c.id}</td>
-              <td>${c.title}</td>
-              <td>${c.author}</td>
-              <td>
-                ${(c.genres || []).map(g => `<span class="cw-genre-tag" style="font-size: 0.65rem;">${g}</span>`).join(' ')}
-              </td>
-              <td>
-                <span class="text-secondary small">User ID: ${c.uploaderId || 'Chưa rõ'}</span>
-              </td>
-              <td>
-                <!-- APPROVE -->
-                <button class="btn btn-sm btn-success px-3 me-1" onclick="handleApproveComic(${c.id})" title="Phê duyệt hiển thị">
-                  <i class="bi bi-check-lg"></i> Duyệt
-                </button>
-                <!-- DELETE -->
-                <button class="btn btn-sm btn-outline-danger" onclick="handleDeleteComicPending(${c.id})" title="Từ chối/Xoá">
-                  <i class="bi bi-trash"></i>
-                </button>
-              </td>
-            </tr>
-          `).join('')}
+          ${await Promise.all(pending.map(async c => {
+            // Lấy thông tin uploader
+            let uploaderName = 'Không rõ';
+            if (c.uploaderId) {
+              try {
+                const uploader = await fetchAPI(`/users/${c.uploaderId}`);
+                uploaderName = uploader?.displayName || uploader?.email || c.uploaderId;
+              } catch(e) { /* silent */ }
+            }
+            return `
+              <tr>
+                <td>${c.id}</td>
+                <td>
+                  <img src="../../${c.coverImage}" style="width:40px;height:55px;object-fit:cover;border-radius:4px;" onerror="this.src='../../assets/images/placeholder.svg'">
+                </td>
+                <td><strong>${c.title}</strong><br><small class="text-secondary">${(c.genres||[]).join(', ')}</small></td>
+                <td>${c.author}</td>
+                <td>${uploaderName}</td>
+                <td><small class="text-muted">${formatDate(c.createdAt)}</small></td>
+                <td>
+                  <button class="btn btn-sm btn-outline-info me-1"
+                    onclick="window.open('../comic-detail.html?id=${c.id}', '_blank')"
+                    title="Xem trước">
+                    <i class="bi bi-eye"></i>
+                  </button>
+                  <button class="btn btn-sm btn-outline-success me-1"
+                    onclick="handleApproveComic(${c.id})"
+                    title="Duyệt">
+                    <i class="bi bi-check-circle"></i> Duyệt
+                  </button>
+                  <button class="btn btn-sm btn-outline-danger"
+                    onclick="handleDeleteComic(${c.id})"
+                    title="Từ chối & Xoá">
+                    <i class="bi bi-x-circle"></i> Từ chối
+                  </button>
+                </td>
+              </tr>
+            `;
+          })).then(rows => rows.join(''))}
         </tbody>
       </table>
     `;
   } catch (err) {
     console.error(err);
-    container.innerHTML = '<p class="text-danger">Lỗi tải danh sách truyện chờ duyệt.</p>';
-  }
-}
-
-async function handleApproveComic(id) {
-  const confirmApprove = confirm('Bạn có chắc chắn muốn phê duyệt truyện này hiển thị trên trang chủ không?');
-  if (!confirmApprove) return;
-
-  try {
-    await approveComic(id);
-    alert('Phê duyệt truyện thành công!');
-    
-    // Reload lists & stats
-    loadAdminStats();
-    loadAdminComicList();
-    loadAdminPendingComicList();
-  } catch (err) {
-    console.error(err);
-    alert('Phê duyệt truyện thất bại!');
-  }
-}
-
-async function handleDeleteComicPending(id) {
-  const confirmDelete = confirm('Bạn có chắc chắn muốn từ chối và xóa truyện này?');
-  if (!confirmDelete) return;
-
-  try {
-    await deleteComic(id);
-    alert('Đã xóa truyện thành công!');
-    loadAdminPendingComicList();
-  } catch (err) {
-    console.error(err);
-    alert('Xóa truyện thất bại!');
+    container.innerHTML = `<p class="text-danger p-3">Lỗi tải danh sách chờ duyệt.</p>`;
   }
 }

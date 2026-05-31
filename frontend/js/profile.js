@@ -483,9 +483,13 @@ async function handleUploadComic(e) {
     // Reset form and reload
     document.getElementById('upload-comic-form').reset();
     
+    // Re-render checkboxes sau khi reset
+    loadUploadGenres();
+    
     // Collapse form
     const collapseEl = document.getElementById('upload-form-wrapper');
-    bootstrap.Collapse.getInstance(collapseEl).hide();
+    const bsCollapse = bootstrap.Collapse.getInstance(collapseEl) || new bootstrap.Collapse(collapseEl, { toggle: false });
+    bsCollapse.hide();
 
     loadUploadedComics();
   } catch (err) {

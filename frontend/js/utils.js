@@ -68,6 +68,7 @@ function formatViews(num) {
  * @returns {string} HTML
  */
 function renderStars(rating) {
+  if (!rating || isNaN(rating)) rating = 0;
   let html = '';
   for (let i = 1; i <= 5; i++) {
     if (i <= Math.floor(rating)) {

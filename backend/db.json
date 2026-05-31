@@ -39,6 +39,16 @@
       "createdAt": "2026-05-24T15:29:43.047Z",
       "id": 5,
       "coins": 100
+    },
+    {
+      "email": "mingw34@gmail.com",
+      "password": "$2a$10$j7DqYg4mHqtpqKCjVFh3Ae2cmo3Cz.YDJPQy1g1ERxQmi1QuwP8dG",
+      "displayName": "mingw34",
+      "role": "user",
+      "avatar": "https://scontent.fhan15-2.fna.fbcdn.net/v/t39.30808-1/509007504_708951821747507_5276150440487953485_n.jpg?stp=cp0_dst-jpg_s60x60_tt6&_nc_cat=100&ccb=1-7&_nc_sid=e99d92&_nc_eui2=AeGKvxRNQKuoz9XKtYpFPzwY-0-b_7KfLdP7T5v_sp8t04ViD2Y_-4S7xM-dRK4u4cJNa8xCZktgbB0J_rCHaYHc&_nc_ohc=PSN5sxTsTrgQ7kNvwEl1oiX&_nc_oc=AdqQFZ0xwcubx_xv3AAL0vfXInZCcstttNunZJ6hX1HFswik8xubcPGcT9bmutQ8_5N8mUSN6hMqVlAHMe9BlbEW&_nc_zt=24&_nc_ht=scontent.fhan15-2.fna&_nc_gid=Nryjg7Grv6dn1oD9gf3T0g&_nc_ss=7b2a8&oh=00_Af92e9Y6zCNiM58Evn57xAbLfchkPnwMPO8Fgp9xVRIvVQ&oe=6A21C746",
+      "coins": 240,
+      "createdAt": "2026-05-31T09:29:09.592Z",
+      "id": 6
     }
   ],
   "comics": [
@@ -179,16 +189,18 @@
       "id": 7,
       "title": "Attack on Titan",
       "slug": "attack-on-titan",
-      "description": "Abc",
-      "coverImage": "assets/images/placeholder.svg",
-      "author": "Eren",
+      "description": "Phần mở đầu của Đại Chiến Người Khổng Lồ tạo ấn tượng rất mạnh vì bức tường tưởng là nơi trú ẩn an toàn lại sụp xuống chỉ trong chốc lát. Eren bước vào câu chuyện với nỗi mất mát quá lớn, nên mọi lựa chọn về sau đều mang theo cảm giác bị dồn đến đường cùng. Bộ truyện tranh manga này không xây không khí theo hướng phiêu lưu sáng màu, mà giữ sự ngột ngạt, bất an và căng thẳng gần như xuyên suốt. Chính sắc thái đó làm truyện khác hẳn nhiều bộ shounen quen thuộc.",
+      "coverImage": "assets/images/cover_images/cover_7.jpg",
+      "author": "Hajime Isayama",
       "artist": "Hajime Isayama",
       "genres": [
-        "Action"
+        "action",
+        "fantasy",
+        "drama"
       ],
       "status": "ongoing",
       "rating": 5,
-      "views": 0,
+      "views": 148135,
       "totalChapters": 80,
       "createdAt": "2026-05-24T14:50:01.175Z",
       "updatedAt": "2026-05-24T14:50:01.175Z",
@@ -3370,7 +3382,7 @@
       "chapterNumber": 1,
       "title": "",
       "pages": [
-        "assets/images/placeholder.svg"
+        "assets/images/Comics/Attack_On_Titan/page_1.jpg"
       ],
       "price": 10,
       "createdAt": "2026-05-24T15:24:05.949Z"
@@ -3381,7 +3393,7 @@
       "chapterNumber": 2,
       "title": "",
       "pages": [
-        "assets/images/placeholder.svg"
+        "assets/images/Comics/Attack_On_Titan/page_4.jpg"
       ],
       "price": 10,
       "createdAt": "2026-05-24T15:25:05.950Z"
@@ -3392,7 +3404,7 @@
       "chapterNumber": 3,
       "title": "",
       "pages": [
-        "assets/images/placeholder.svg"
+        "assets/images/Comics/Attack_On_Titan/page_6.jpg"
       ],
       "price": 10,
       "createdAt": "2026-05-24T15:26:05.950Z"
@@ -7301,6 +7313,30 @@
       "chapterId": 3,
       "lastPage": 2,
       "updatedAt": "2026-05-01T09:30:00Z"
+    },
+    {
+      "userId": 6,
+      "comicId": 6,
+      "chapterId": 214,
+      "lastPage": 1,
+      "updatedAt": "2026-05-31T09:57:20.435Z",
+      "id": 2
+    },
+    {
+      "userId": 6,
+      "comicId": 7,
+      "chapterId": 254,
+      "lastPage": 1,
+      "updatedAt": "2026-05-31T09:50:33.398Z",
+      "id": 3
+    },
+    {
+      "userId": 6,
+      "comicId": 1,
+      "chapterId": 1,
+      "lastPage": 1,
+      "updatedAt": "2026-05-31T09:55:40.424Z",
+      "id": 4
     }
   ],
   "genres": [
@@ -7331,7 +7367,16 @@
     }
   ],
   "cart": [],
-  "purchases": [],
+  "purchases": [
+    {
+      "userId": 6,
+      "comicId": 6,
+      "chapterId": 214,
+      "price": 10,
+      "createdAt": "2026-05-31T09:57:19.082Z",
+      "id": 1
+    }
+  ],
   "comments": [
     {
       "id": 1,
