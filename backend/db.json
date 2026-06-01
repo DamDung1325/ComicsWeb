@@ -1,0 +1,260 @@
+{
+  "users": [
+    {
+      "email": "buid17150@gmail.com",
+      "password": "$2a$10$bsJXcLI9h66Ddw1o0pxNfODI7.TEFqcjaQ0JT.aCYUt3fYssyhaT6",
+      "displayName": "Duy Bùi",
+      "role": "admin",
+      "avatar": "https://cdn.britannica.com/77/81277-050-2A6A35B2/Adelie-penguin.jpg",
+      "createdAt": "2026-05-24T14:47:07.425Z",
+      "id": 4,
+      "coins": 100
+    },
+    {
+      "email": "user@gmail.com",
+      "password": "$2a$10$n6FGx2Bv2B0d4lH8HPBUIucVRwwwnepZkbRMA.godNzxO9KIy2zWG",
+      "displayName": "user",
+      "role": "user",
+      "avatar": "https://cdn.britannica.com/77/81277-050-2A6A35B2/Adelie-penguin.jpg",
+      "coins": 100,
+      "createdAt": "2026-06-01T09:54:21.001Z",
+      "id": 5
+    },
+    {
+      "id": 6,
+      "email": "admin@tlutruyen.vn",
+      "password": "$2b$10$8wiR4yEYgaQLmD4u3XJXeuoomqK5lZt0uxFybKrFAoW/wX7lPgnsK",
+      "displayName": "Quản Trị Viên",
+      "username": "admin",
+      "role": "admin",
+      "status": "active",
+      "avatar": "",
+      "createdAt": "2026-06-01T10:01:13.517Z"
+    }
+  ],
+  "comics": [
+    {
+      "title": "Naruto",
+      "slug": "naruto",
+      "description": "Kể về Uzumaki Naruto, một ninja trẻ mang trong mình Cửu Vĩ Hồ Ly. Bị dân làng xa lánh từ nhỏ, Naruto luôn khao khát được công nhận và đặt mục tiêu trở thành Hokage – người lãnh đạo mạnh nhất làng Lá. Truyện xoay quanh hành trình trưởng thành, tình bạn, sự hy sinh và các cuộc chiến giữa các làng ninja.",
+      "coverImage": "assets/images/cover_images/Naruto_cover.jpg",
+      "author": "Masashi Kishimoto",
+      "artist": "Masashi Kishimoto",
+      "genres": [
+        "action",
+        "adventure"
+      ],
+      "status": "ongoing",
+      "rating": 5,
+      "views": 0,
+      "totalChapters": 3,
+      "approved": true,
+      "uploaderId": null,
+      "createdAt": "2026-06-01T09:47:09.502Z",
+      "updatedAt": "2026-06-01T09:50:18.221Z",
+      "id": 1
+    },
+    {
+      "title": "Bleach",
+      "slug": "bleach",
+      "description": "Câu chuyện về Kurosaki Ichigo, một học sinh có khả năng nhìn thấy linh hồn. Sau khi gặp Shinigami Rukia Kuchiki, Ichigo trở thành Thần Chết thay thế và chiến đấu chống lại các Hollow – những linh hồn tha hóa. Truyện mở rộng với các cuộc chiến giữa Soul Society, Arrancar, Quincy và những bí mật về thế giới linh hồn.",
+      "coverImage": "assets/images/cover_images/Bleach_cover.jpg",
+      "author": "Tite Kubo",
+      "artist": "Tite Kubo",
+      "genres": [
+        "action",
+        "adventure"
+      ],
+      "status": "ongoing",
+      "rating": 5,
+      "views": 0,
+      "totalChapters": 3,
+      "approved": true,
+      "uploaderId": null,
+      "createdAt": "2026-06-01T09:50:04.309Z",
+      "updatedAt": "2026-06-01T09:51:09.361Z",
+      "id": 2
+    },
+    {
+      "title": "One Piece",
+      "slug": "one-piece",
+      "description": "Theo chân Monkey D. Luffy và băng Mũ Rơm trên hành trình tìm kho báu huyền thoại One Piece để trở thành Vua Hải Tặc. Truyện kết hợp phiêu lưu, hành động, hài hước và những bí ẩn lớn về lịch sử thế giới, Chính Quyền Thế Giới và ý chí tự do.",
+      "coverImage": "assets/images/cover_images/One_Piece_cover.jpg",
+      "author": "Eiichiro Oda",
+      "artist": "Eiichiro Oda",
+      "genres": [
+        "action",
+        "adventure"
+      ],
+      "status": "ongoing",
+      "rating": 5,
+      "views": 0,
+      "totalChapters": 3,
+      "approved": true,
+      "uploaderId": null,
+      "createdAt": "2026-06-01T09:52:49.728Z",
+      "updatedAt": "2026-06-01T09:53:42.986Z",
+      "id": 3
+    }
+  ],
+  "chapters": [
+    {
+      "comicId": 1,
+      "chapterNumber": 1,
+      "title": "Chương 1",
+      "pages": [
+        "assets/images/Comics/Naruto/chapter_1/page_1.jpg"
+      ],
+      "price": 0,
+      "createdAt": "2026-06-01T09:47:09.502Z",
+      "id": 1
+    },
+    {
+      "comicId": 1,
+      "chapterNumber": 2,
+      "title": "Chương 2",
+      "price": 0,
+      "pages": [
+        "assets/images/Comics/Naruto/chapter_2/page_1.jpg"
+      ],
+      "updatedAt": "2026-06-01T09:47:45.420Z",
+      "createdAt": "2026-06-01T09:47:45.420Z",
+      "id": 2
+    },
+    {
+      "comicId": 1,
+      "chapterNumber": 3,
+      "title": "Chương 3",
+      "price": 100,
+      "pages": [
+        "assets/images/Comics/Naruto/chapter_3/page_1.jpg"
+      ],
+      "updatedAt": "2026-06-01T09:48:06.899Z",
+      "createdAt": "2026-06-01T09:48:06.899Z",
+      "id": 3
+    },
+    {
+      "comicId": 2,
+      "chapterNumber": 1,
+      "title": "Chương 1",
+      "pages": [
+        "assets/images/Comics/Bleach/chapter_1/page_1.jpg"
+      ],
+      "price": 0,
+      "createdAt": "2026-06-01T09:50:04.309Z",
+      "id": 4
+    },
+    {
+      "comicId": 2,
+      "chapterNumber": 2,
+      "title": "Chương 2",
+      "price": 0,
+      "pages": [
+        "assets/images/Comics/Bleach/chapter_2/page_1.jpg"
+      ],
+      "updatedAt": "2026-06-01T09:50:50.861Z",
+      "createdAt": "2026-06-01T09:50:50.861Z",
+      "id": 5
+    },
+    {
+      "comicId": 2,
+      "chapterNumber": 3,
+      "title": "Chương 3",
+      "price": 150,
+      "pages": [
+        "assets/images/Comics/Bleach/chapter_3/page_1.jpg"
+      ],
+      "updatedAt": "2026-06-01T09:51:09.291Z",
+      "createdAt": "2026-06-01T09:51:09.291Z",
+      "id": 6
+    },
+    {
+      "comicId": 3,
+      "chapterNumber": 1,
+      "title": "Chương 1",
+      "pages": [
+        "assets/images/Comics/One_Piece/chapter_1/page_1.jpg",
+        "assets/images/Comics/One_Piece/chapter_1/page_2.jpg"
+      ],
+      "price": 0,
+      "createdAt": "2026-06-01T09:52:49.728Z",
+      "id": 7
+    },
+    {
+      "comicId": 3,
+      "chapterNumber": 2,
+      "title": "Chương 2",
+      "price": 0,
+      "pages": [
+        "assets/images/Comics/One_Piece/chapter_2/page_1.webp"
+      ],
+      "updatedAt": "2026-06-01T09:53:14.008Z",
+      "createdAt": "2026-06-01T09:53:14.008Z",
+      "id": 8
+    },
+    {
+      "comicId": 3,
+      "chapterNumber": 3,
+      "title": "Chương 3",
+      "price": 200,
+      "pages": [
+        "assets/images/Comics/One_Piece/chapter_3/page_1.webp",
+        "assets/images/Comics/One_Piece/chapter_3/page_2.webp"
+      ],
+      "updatedAt": "2026-06-01T09:53:42.938Z",
+      "createdAt": "2026-06-01T09:53:42.938Z",
+      "id": 9
+    }
+  ],
+  "bookmarks": [],
+  "readingHistory": [
+    {
+      "userId": 5,
+      "comicId": 1,
+      "chapterId": 2,
+      "lastPage": 1,
+      "updatedAt": "2026-06-01T09:54:26.904Z",
+      "id": 1
+    }
+  ],
+  "genres": [
+    {
+      "id": 1,
+      "name": "Hành động",
+      "slug": "action"
+    },
+    {
+      "id": 2,
+      "name": "Phiêu lưu",
+      "slug": "adventure"
+    },
+    {
+      "id": 3,
+      "name": "Giả tưởng",
+      "slug": "fantasy"
+    },
+    {
+      "id": 4,
+      "name": "Hài hước",
+      "slug": "comedy"
+    },
+    {
+      "id": 5,
+      "name": "Viễn tưởng",
+      "slug": "sci-fi"
+    }
+  ],
+  "cart": [],
+  "purchases": [],
+  "comments": [
+    {
+      "comicId": 1,
+      "userId": 5,
+      "userDisplayName": "user",
+      "userAvatar": "https://cdn.britannica.com/77/81277-050-2A6A35B2/Adelie-penguin.jpg",
+      "content": "Truyện hay, nhân vật chính cuốn hút",
+      "createdAt": "2026-06-01T09:55:06.694Z",
+      "id": 1
+    }
+  ]
+}

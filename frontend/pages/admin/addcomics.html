@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Thêm truyện mới — TLUTRUYEN</title>
+ 
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <link href="../../css/style.css" rel="stylesheet">
+</head>
+ 
+<body>
+ 
+<main class="container py-4">
+ 
+  <h2 class="cw-section__title mb-4">
+    <i class="bi bi-plus-circle"></i>
+    Thêm truyện mới
+  </h2>
+ 
+  <section class="cw-add-comic-card">
+ 
+    <form id="add-comic-form">
+ 
+      <div class="row g-4">
+ 
+        <!-- ID tự động -->
+        <div class="col-md-6">
+          <label class="cw-form-label">ID truyện</label>
+ 
+          <div class="cw-auto-id-box">
+            <div>
+              <span class="cw-auto-id-box__title">
+                <i class="bi bi-magic"></i>
+                ID tự động
+              </span>
+ 
+              <p class="cw-auto-id-box__text mb-0">
+                ID sẽ được tự động cộng lên 1 khi thêm truyện mới.
+              </p>
+            </div>
+          </div>
+        </div>
+ 
+        <!-- Tên truyện -->
+        <div class="col-md-6">
+          <label class="cw-form-label" for="comic-title">Tên truyện</label>
+          <input
+            type="text"
+            class="cw-form-input"
+            id="comic-title"
+            placeholder="Nhập tên truyện">
+        </div>
+ 
+        <!-- Tác giả -->
+        <div class="col-md-6">
+          <label class="cw-form-label" for="comic-author">Tác giả</label>
+          <input
+            type="text"
+            class="cw-form-input"
+            id="comic-author"
+            placeholder="Nhập tên tác giả">
+        </div>
+ 
+        <!-- Artist -->
+        <div class="col-md-6">
+          <label class="cw-form-label" for="comic-artist">Artist</label>
+          <input
+            type="text"
+            class="cw-form-input"
+            id="comic-artist"
+            placeholder="Nhập tên artist">
+        </div>
+ 
+        <!-- Ảnh bìa -->
+        <div class="col-md-6">
+          <label class="cw-form-label" for="comic-cover">Ảnh bìa truyện</label>
+ 
+          <label class="cw-upload-box" for="comic-cover">
+            <i class="bi bi-image"></i>
+            <span>Upload ảnh bìa</span>
+            <small>PNG, JPG, WEBP</small>
+          </label>
+ 
+          <input
+            type="file"
+            id="comic-cover"
+            class="cw-upload-input"
+            accept="image/*">
+        </div>
+
+        <!-- Cover image preview -->
+        <div id="cover-preview-container" class="col-md-6 mt-3 d-none">
+          <div class="upload-preview-wrapper">
+            <div class="upload-preview-item position-relative">
+              <img id="cover-preview-img" src="" alt="Preview ảnh bìa" class="upload-preview-img">
+              <div class="upload-preview-info">
+                <span id="cover-preview-name" class="upload-preview-filename"></span>
+                <small id="cover-preview-size" class="text-muted d-block"></small>
+                <small id="cover-preview-dims" class="text-muted d-block"></small>
+                <button type="button" class="btn btn-sm btn-outline-danger mt-2" onclick="removeCoverPreview()" style="cursor: pointer;">
+                  <i class="bi bi-trash"></i> Xóa
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Upload chap -->
+        <div class="col-md-6">
+          <label class="cw-form-label" for="comic-chapters">Chap của truyện (Tùy chọn)</label>
+ 
+          <label class="cw-upload-box" for="comic-chapters">
+            <i class="bi bi-file-earmark-zip"></i>
+            <span>Upload chap truyện</span>
+            <small>Có thể chọn nhiều file ảnh hoặc file nén</small>
+          </label>
+ 
+          <input
+            type="file"
+            id="comic-chapters"
+            class="cw-upload-input"
+            multiple
+            accept="image/*,.zip,.rar,.7z">
+        </div>
+
+        <!-- Chapters images preview -->
+        <div id="chapters-preview-container" class="col-md-12 mt-3 d-none">
+          <div class="d-flex align-items-center mb-3">
+            <strong>Đã chọn <span id="chapters-count">0</span> trang truyện:</strong>
+            <button type="button" class="btn btn-sm btn-outline-secondary ms-auto" onclick="clearChaptersPreview()">
+              <i class="bi bi-trash"></i> Xóa tất cả
+            </button>
+          </div>
+          <div id="chapters-preview" class="upload-preview-grid"></div>
+        </div>
+
+        <!-- Số thứ tự chương -->
+        <div class="col-md-6">
+          <label class="cw-form-label" for="comic-chapter-number">Số thứ tự chương (Chapter Number)</label>
+          <input
+            type="number"
+            class="cw-form-input"
+            id="comic-chapter-number"
+            value="1"
+            min="1"
+            placeholder="Ví dụ: 1">
+        </div>
+
+        <!-- Tên chương -->
+        <div class="col-md-6">
+          <label class="cw-form-label" for="comic-chapter-title">Tên chương (Chapter Title)</label>
+          <input
+            type="text"
+            class="cw-form-input"
+            id="comic-chapter-title"
+            value="Chương 1"
+            placeholder="Ví dụ: Chương 1: Khởi đầu mới">
+        </div>
+
+        <!-- Giá xu để đọc -->
+        <div class="col-md-6">
+          <label class="cw-form-label" for="comic-chapter-price">Giá đọc chương (Số xu - Nhập 0 nếu miễn phí)</label>
+          <input
+            type="number"
+            class="cw-form-input"
+            id="comic-chapter-price"
+            value="0"
+            min="0"
+            placeholder="Ví dụ: 0 hoặc 10">
+        </div>
+
+ 
+        <!-- Mô tả -->
+        <div class="col-md-12">
+          <label class="cw-form-label" for="comic-description">Mô tả</label>
+ 
+          <textarea
+            class="cw-form-input cw-form-textarea"
+            id="comic-description"
+            rows="5"
+            placeholder="Nhập mô tả nội dung truyện"></textarea>
+        </div>
+ 
+        <!-- Thể loại -->
+        <div class="col-md-12">
+          <label class="cw-form-label" for="comic-genres">
+            Thể loại
+          </label>
+ 
+          <input
+            type="text"
+            class="cw-form-input"
+            id="comic-genres"
+            placeholder="Action, Fantasy, Adventure">
+        </div>
+ 
+      </div>
+ 
+      <div class="d-flex flex-wrap gap-3 mt-4">
+ 
+        <button type="submit" class="btn btn-cw-primary" id="btn-add-comic">
+          <i class="bi bi-check-lg"></i>
+          Thêm truyện
+        </button>
+ 
+        <a href="dashboard.html" class="btn btn-cw-outline">
+          <i class="bi bi-arrow-left"></i>
+          Quay lại
+        </a>
+ 
+      </div>
+ 
+    </form>
+ 
+  </section>
+ 
+</main>
+ 
+  <script src="../../js/config.js"></script>
+  <script src="../../js/utils.js"></script>
+  <script src="../../js/auth.js"></script>
+  <script src="../../js/api.js"></script>
+  <script src="../../js/addcomics.js"></script>
+</body>
+</html>
